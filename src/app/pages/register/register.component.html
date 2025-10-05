@@ -1,0 +1,146 @@
+<nz-layout
+  class="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"
+>
+  <app-header></app-header>
+
+  <nz-layout>
+    <nz-content
+      class="flex justify-center items-center min-h-[80vh] center-content p-1"
+    >
+      <div
+        class="relative max-w-md w-full bg-white/80 backdrop-blur-md shadow-2xl rounded-2xl p-[3px] border-transparent"
+      >
+        <div class="rounded-2xl bg-white p-8">
+          <h1
+            class="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6"
+          >
+            Register Here
+          </h1>
+
+          <form
+            nz-form
+            [formGroup]="validateForm"
+            class="space-y-4"
+            (ngSubmit)="submitForm()"
+          >
+            <!-- name -->
+            <nz-form-item>
+              <nz-form-control
+                nzErrorTip="Please input your name!"
+                nzHasFeedback
+              >
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="name"
+                  placeholder="Name"
+                />
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- email -->
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="emailErrorTpl" nzHasFeedback>
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="email"
+                  placeholder="Email"
+                />
+                <!-- Multiple error messages template -->
+                <ng-template #emailErrorTpl let-control>
+                  @if(control.hasError('required')){
+                  <ng-container> Please input your email! </ng-container>
+                  } @if(control.hasError('email')){
+                  <ng-container>
+                    Please enter a valid email address!
+                  </ng-container>
+                  }
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <!-- Username -->
+            <nz-form-item>
+              <nz-form-control
+                nzErrorTip="Please input your username!"
+                nzHasFeedback
+              >
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="username"
+                  placeholder="Username"
+                />
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- Password -->
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="passwordErrorTpl" nzHasFeedback>
+                <input
+                  type="password"
+                  nz-input
+                  formControlName="password"
+                  placeholder="Password"
+                />
+                <ng-template #passwordErrorTpl let-control>
+                  @if (control.errors?.['required']) { Please confirm your
+                  password! } @if (control.errors?.['minlength']) { Password
+                  should be at least 6 characters! }
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- Confirm Password -->
+            <nz-form-item>
+              <nz-form-control
+                [nzErrorTip]="confirmPasswordErrorTpl"
+                nzHasFeedback
+              >
+                <input
+                  type="password"
+                  nz-input
+                  formControlName="confirm"
+                  placeholder="Confirm Password"
+                />
+                <ng-template #confirmPasswordErrorTpl let-control>
+                  @if (control.errors?.['required']) { Please confirm your
+                  password! } @if (control.errors?.['confirm']) { Password is
+                  inconsistent! }
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- Remember & Forgot -->
+            <div class="flex justify-end items-center text-sm">
+              <a
+                class="text-blue-600 hover:text-purple-600 font-medium cursor-pointer"
+              >
+                Forgot password?
+              </a>
+            </div>
+
+            <!-- Submit -->
+            <button
+              nz-button
+              [nzType]="'primary'"
+              class="w-full py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-md hover:opacity-90 transition-all"
+            >
+              Submit
+            </button>
+
+            <p class="text-gray-600 mt-1">
+              Or
+              <a
+                class="text-blue-600 hover:text-purple-600 font-medium cursor-pointer"
+                >Login!</a
+              >
+            </p>
+          </form>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+
+  <app-footer></app-footer>
+</nz-layout>
