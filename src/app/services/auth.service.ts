@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.development';
 import { UsernameCheckResponse } from '../types/username-check-response';
 import { LoginPayloadType } from '../types/login-payload';
 import { catchError, map, of } from 'rxjs';
+import { ForgotPasswordPayloadType } from '../types/forgot-password-payload';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +38,13 @@ export class AuthService {
 
   logout() {
     return this.http.get(`${this.baseUrl}/logout`, { withCredentials: true });
+  }
+
+  forgotPassword<T>(payload: T) {
+    return this.http.post(`${this.baseUrl}/forgot-password`, payload);
+  }
+
+  resetPassword<T>(payload: T) {
+    return this.http.post(`${this.baseUrl}/reset-password`, payload);
   }
 }
