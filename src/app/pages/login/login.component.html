@@ -2,7 +2,6 @@
   class="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"
 >
   <app-header></app-header>
-
   <nz-layout>
     <nz-content
       class="flex justify-center items-center min-h-[80vh] center-content p-1"
@@ -14,7 +13,7 @@
           <h1
             class="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6"
           >
-            Register Here
+            Login Here
           </h1>
 
           <form
@@ -23,21 +22,6 @@
             class="space-y-4"
             (ngSubmit)="submitForm()"
           >
-            <!-- name -->
-            <nz-form-item>
-              <nz-form-control
-                nzErrorTip="Please input your name!"
-                nzHasFeedback
-              >
-                <input
-                  type="text"
-                  nz-input
-                  formControlName="name"
-                  placeholder="Name"
-                />
-              </nz-form-control>
-            </nz-form-item>
-
             <!-- email -->
             <nz-form-item>
               <nz-form-control [nzErrorTip]="emailErrorTpl" nzHasFeedback>
@@ -59,22 +43,6 @@
                 </ng-template>
               </nz-form-control>
             </nz-form-item>
-            <!-- Username -->
-            <nz-form-item>
-              <nz-form-control [nzErrorTip]="userErrorTpl" nzHasFeedback nzValidatingTip="Validating..."> 
-                <input
-                  type="text"
-                  nz-input
-                  formControlName="username"
-                  placeholder="Username"
-                />
-                <ng-template #userErrorTpl let-control>
-                  @if (control.errors?.['required']) { Please input your
-                  username! } @if (control.errors?.['duplicated']) { This
-                  username is already in use! }
-                </ng-template>
-              </nz-form-control>
-            </nz-form-item>
 
             <!-- Password -->
             <nz-form-item>
@@ -93,25 +61,14 @@
               </nz-form-control>
             </nz-form-item>
 
-            <!-- Confirm Password -->
-            <nz-form-item>
-              <nz-form-control
-                [nzErrorTip]="confirmPasswordErrorTpl"
-                nzHasFeedback
+            <!-- Remember & Forgot -->
+            <div class="flex justify-end items-center text-sm">
+              <a
+                class="text-blue-600 hover:text-purple-600 font-medium cursor-pointer"
               >
-                <input
-                  type="password"
-                  nz-input
-                  formControlName="confirm"
-                  placeholder="Confirm Password"
-                />
-                <ng-template #confirmPasswordErrorTpl let-control>
-                  @if (control.errors?.['required']) { Please confirm your
-                  password! } @if (control.errors?.['confirm']) { Password is
-                  inconsistent! }
-                </ng-template>
-              </nz-form-control>
-            </nz-form-item>
+                Forgot password?
+              </a>
+            </div>
 
             <!-- Submit -->
             <button
@@ -126,8 +83,8 @@
               Or
               <a
                 class="text-blue-600 hover:text-purple-600 font-medium cursor-pointer"
-                routerLink="/login"
-                >Login!</a
+                routerLink="/register"
+                >Register Here!</a
               >
             </p>
           </form>

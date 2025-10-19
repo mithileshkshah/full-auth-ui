@@ -14,7 +14,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { catchError, map, Observable, of, switchMap, timer } from 'rxjs';
+import { map, Observable, of, switchMap, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { Subject } from 'rxjs/internal/Subject';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -22,6 +22,8 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { USER_ROLE } from '../../enum/user-role.enum';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../types/user';
+import { Router, RouterLink } from '@angular/router';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-register',
@@ -36,13 +38,16 @@ import { User } from '../../types/user';
     NzFormModule,
     NzInputModule,
     NzIconModule,
+    RouterLink,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   private fb = inject(NonNullableFormBuilder);
+  private router = inject(Router);
   private authService = inject(AuthService);
+  private notification = inject(NzNotificationService);
   private destroy$ = new Subject<void>();
   validateForm = this.fb.group({
     name: this.fb.control('', [Validators.required]),
@@ -112,9 +117,11 @@ export class RegisterComponent {
         .subscribe({
           next: (res) => {
             console.log(res);
+            this.router.navigate(['login']);
           },
           error: (err: HttpErrorResponse) => {
             console.log(err);
+            this.notification.error('Error', err.error.message);
           },
         });
     } else {

@@ -1,7 +1,19 @@
 <nz-header nz-flex nzJustify="space-between" nzAlign="center">
   <div>Full Auth UI</div>
   <div nz-flex nzGap="small">
-    <button nz-button nzType="primary">Login</button>
+    @if(isLoggedIn()){
+    <button
+      nz-button
+      nzType="text"
+      nzDanger
+      routerLink="/login"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+    }@else {
+    <button nz-button nzType="primary" routerLink="/login">Login</button>
     <button nz-button nzType="text" routerLink="/register">Register</button>
+    }
   </div>
 </nz-header>
